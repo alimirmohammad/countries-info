@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
+
+function toggleTheme() {
+  const theme = document.documentElement.getAttribute("data-theme");
+  const nextTheme = theme === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", nextTheme);
+}
 </script>
 
 <template>
   <header>
     <router-link to="/" class="brand">Where in the world?</router-link>
-    <span class="mode">
+    <span class="mode" @click="toggleTheme">
       <ion-icon name="moon-outline"></ion-icon>
       <span class="text">Dark Mode</span>
     </span>
@@ -30,12 +36,25 @@ header {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: space-between;
-  padding: 2rem 1rem;
-  position: sticky;
+  max-width: 1280px;
+  padding: 2rem;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
 
 ion-icon {
   --ionicon-stroke-width: 46px;
+}
+
+main {
+  padding: 6.625rem 2rem;
+}
+
+@media screen and (max-width: 470px) {
+  main {
+    padding: 6.625 1rem;
+  }
 }
 
 .mode {

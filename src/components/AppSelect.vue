@@ -51,8 +51,8 @@ li {
 }
 
 li:hover {
-  background-color: var(--color-input);
-  color: var(--c-white);
+  background-color: var(--color-text);
+  color: var(--color-background);
 }
 
 .options {
@@ -64,6 +64,7 @@ li:hover {
   position: absolute;
   top: 4rem;
   left: 0;
+  width: 100%;
   z-index: 1;
 }
 

@@ -28,6 +28,7 @@ div {
 }
 
 input {
+  background-color: var(--color-elements);
   border: none;
   color: var(--color-input);
   font-family: inherit;

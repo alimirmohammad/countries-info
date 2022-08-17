@@ -8,14 +8,23 @@
   --c-white: hsl(0, 0%, 100%);
 }
 
-:root {
-  --breakpoint-mobile: 375px;
-  --breakpoint-desktop: 1440px;
-
+:root[data-theme="light"] {
   --color-text: var(--c-very-dark-blue-2);
   --color-elements: var(--c-white);
   --color-background: var(--c-very-light-gray);
   --color-input: var(--c-dark-gray);
+}
+
+:root[data-theme="dark"] {
+  --color-text: var(--c-white);
+  --color-elements: var(--c-dark-blue);
+  --color-background: var(--c-very-dark-blue-1);
+  --color-input: var(--c-white);
+}
+
+:root {
+  --breakpoint-mobile: 375px;
+  --breakpoint-desktop: 1440px;
 
   --font-weight-normal: 300;
   --font-weight-medium: 600;
@@ -43,6 +52,7 @@
 html {
   width: 100%;
   height: 100%;
+  font-size: 16px;
 }
 
 body {
