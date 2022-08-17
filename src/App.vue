@@ -54,6 +54,7 @@ ion-icon {
 
 main {
   padding: 6.625rem 2rem;
+  position: static;
 }
 
 @media screen and (max-width: 470px) {

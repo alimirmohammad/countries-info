@@ -13,6 +13,7 @@
   --color-elements: var(--c-white);
   --color-background: var(--c-very-light-gray);
   --color-input: var(--c-dark-gray);
+  --color-overlay: rgba(0, 0, 0, 0.3);
 }
 
 :root[data-theme="dark"] {
@@ -20,6 +21,7 @@
   --color-elements: var(--c-dark-blue);
   --color-background: var(--c-very-dark-blue-1);
   --color-input: var(--c-white);
+  --color-overlay: rgba(255, 255, 255, 0.3);
 }
 
 :root {

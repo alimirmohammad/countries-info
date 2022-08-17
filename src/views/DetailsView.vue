@@ -1,15 +1,19 @@
 <script setup lang="ts">
 import { ref, watch, watchEffect } from "vue";
+import { useToast } from "vue-toastification";
 
 import AppLink from "@/components/AppLink.vue";
+import AppLoader from "@/components/AppLoader.vue";
 import BackButton from "@/components/BackButton.vue";
 import type { CountryDto } from "@/typings/dto";
 import KeyValue from "@/components/KeyValue.vue";
 import { useCountriesStore } from "@/stores/countries";
 
+const toast = useToast();
 const country = ref<CountryDto>();
 const props = defineProps<{ code: string }>();
 const countriesList = useCountriesStore();
+const loading = ref(false);
 
 watch(country, () => {
   const borders = country.value?.borders;
@@ -29,14 +33,19 @@ watchEffect(async () => {
     country.value = cachedCountry();
     return;
   }
+  loading.value = true;
   const error = await countriesList.addCountry(props.code);
+  loading.value = false;
   if (!error) {
     country.value = cachedCountry();
+  } else {
+    toast.error(error);
   }
 });
 </script>
 
 <template>
+  <AppLoader :loading="loading" />
   <article>
     <BackButton />
     <div class="country" v-if="country">

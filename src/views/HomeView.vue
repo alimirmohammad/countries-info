@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import { useToast } from "vue-toastification";
 
 import AppInput from "@/components/AppInput.vue";
 import AppSelect from "@/components/AppSelect.vue";
 import AppCard from "@/components/AppCard.vue";
+import AppLoader from "@/components/AppLoader.vue";
 import type { Region, SortBy } from "@/typings/dto";
 import { REGIONS } from "@/data/regions";
 import { SORT_BY } from "@/data/sortBy";
@@ -12,6 +14,8 @@ import { useCountriesStore } from "@/stores/countries";
 
 const countriesStore = useCountriesStore();
 const route = useRoute();
+const toast = useToast();
+const loading = ref(false);
 
 countriesStore.initFilterData({
   query: route.query.query as string,
@@ -21,11 +25,17 @@ countriesStore.initFilterData({
 
 onMounted(async () => {
   if (countriesStore.cached) return;
-  const error = countriesStore.setCountries();
+  loading.value = true;
+  const error = await countriesStore.setCountries();
+  loading.value = false;
+  if (error) {
+    toast.error(error);
+  }
 });
 </script>
 
 <template>
+  <AppLoader :loading="loading" />
   <div class="filters">
     <AppInput v-model="countriesStore.query" />
     <AppSelect
