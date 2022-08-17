@@ -1,0 +1,61 @@
+/* color palette */
+:root {
+  --c-dark-blue: hsl(209, 23%, 22%);
+  --c-very-dark-blue-1: hsl(207, 26%, 17%);
+  --c-very-dark-blue-2: hsl(200, 15%, 8%);
+  --c-dark-gray: hsl(0, 0%, 52%);
+  --c-very-light-gray: hsl(0, 0%, 98%);
+  --c-white: hsl(0, 0%, 100%);
+}
+
+:root {
+  --breakpoint-mobile: 375px;
+  --breakpoint-desktop: 1440px;
+
+  --color-text: var(--c-very-dark-blue-2);
+  --color-elements: var(--c-white);
+  --color-background: var(--c-very-light-gray);
+  --color-input: var(--c-dark-gray);
+
+  --font-weight-normal: 300;
+  --font-weight-medium: 600;
+  --font-weight-bold: 800;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: var(--c-white);
+    --color-elements: var(--c-dark-blue);
+    --color-background: var(--c-very-dark-blue-1);
+    --color-input: var(--c-white);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  font-weight: normal;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  height: 100%;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition: color 0.5s, background-color 0.5s;
+  line-height: 1.6;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
