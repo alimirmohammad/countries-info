@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 
-import { REGIONS } from "@/data/regions";
-
-defineProps(["modelValue"]);
+defineProps<{
+  modelValue: string;
+  label: string;
+  options: Record<string, string>;
+}>();
 defineEmits(["update:modelValue"]);
 
 const open = ref(false);
@@ -28,16 +30,16 @@ onUnmounted(() => {
 <template>
   <div class="wrapper">
     <div class="select" @click.stop="toggle">
-      <span>{{ modelValue ? modelValue : "Filter by Region" }}</span>
+      <span>{{ modelValue ? modelValue : label }}</span>
       <ion-icon name="chevron-down-outline"></ion-icon>
     </div>
     <ul class="options" v-show="open">
       <li
-        v-for="region in REGIONS"
-        :key="region"
-        @click="$emit('update:modelValue', region)"
+        v-for="option in options"
+        :key="option"
+        @click="$emit('update:modelValue', option)"
       >
-        {{ region }}
+        {{ option }}
       </li>
     </ul>
   </div>

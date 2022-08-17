@@ -1,14 +1,15 @@
 import { defineStore } from "pinia";
 
-import type { CountryDto } from "@/typings/dto";
+import type { CountryDto, Region, SortBy } from "@/typings/dto";
 import { getAllCountries, getCountryByCode } from "@/api/countries";
 
 export const useCountriesStore = defineStore({
   id: "countries",
   state: () => ({
     countries: [] as CountryDto[],
-    region: "",
+    region: "" as Region,
     query: "",
+    sortBy: "" as SortBy,
     cached: false,
   }),
   getters: {
@@ -19,11 +20,12 @@ export const useCountriesStore = defineStore({
       }, {} as Record<string, CountryDto>);
     },
     processedCountries(state) {
-      return state.countries.filter(
+      const filteredCountries = state.countries.filter(
         (country) =>
           country.region.toLowerCase().includes(state.region.toLowerCase()) &&
           country.name.toLowerCase().includes(state.query.toLowerCase())
       );
+      return sort(filteredCountries, state.sortBy);
     },
   },
   actions: {
@@ -46,3 +48,19 @@ export const useCountriesStore = defineStore({
     },
   },
 });
+
+function sort(countries: CountryDto[], sortBy: SortBy) {
+  if (sortBy === "Name ↑") {
+    return countries.sort((a, b) => a.name.localeCompare(b.name));
+  }
+  if (sortBy === "Name ↓") {
+    return countries.sort((a, b) => b.name.localeCompare(a.name));
+  }
+  if (sortBy === "Population ↑") {
+    return countries.sort((a, b) => a.population - b.population);
+  }
+  if (sortBy === "Population ↓") {
+    return countries.sort((a, b) => b.population - a.population);
+  }
+  return countries;
+}

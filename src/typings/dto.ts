@@ -1,4 +1,5 @@
 import type { REGIONS } from "@/data/regions";
+import type { SORT_BY } from "@/data/sortBy";
 
 interface CountryDto {
   name: string;
@@ -46,4 +47,6 @@ interface CountryDto {
 
 type Region = keyof typeof REGIONS;
 
-export type { CountryDto, Region };
+type SortBy = keyof typeof SORT_BY;
+
+export type { CountryDto, Region, SortBy };
