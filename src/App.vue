@@ -1,18 +1,23 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { RouterView } from "vue-router";
 
-function toggleTheme() {
-  const theme = document.documentElement.getAttribute("data-theme");
-  const nextTheme = theme === "light" ? "dark" : "light";
-  document.documentElement.setAttribute("data-theme", nextTheme);
+import { getTheme, toggleTheme } from "./utils/theme-preference";
+
+const theme = ref(getTheme());
+
+function handleToggle() {
+  const nextTheme = toggleTheme();
+  theme.value = nextTheme;
 }
 </script>
 
 <template>
   <header>
     <router-link to="/" class="brand">Where in the world?</router-link>
-    <span class="mode" @click="toggleTheme">
-      <ion-icon name="moon-outline"></ion-icon>
+    <span class="mode" @click="handleToggle">
+      <ion-icon v-if="theme === 'dark'" name="moon"></ion-icon>
+      <ion-icon v-else name="moon-outline"></ion-icon>
       <span class="text">Dark Mode</span>
     </span>
   </header>
