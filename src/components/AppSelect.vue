@@ -30,16 +30,16 @@ onUnmounted(() => {
 <template>
   <div class="wrapper">
     <div class="select" @click.stop="toggle">
-      <span>{{ modelValue ? modelValue : label }}</span>
+      <span>{{ modelValue ? options[modelValue] : label }}</span>
       <ion-icon name="chevron-down-outline"></ion-icon>
     </div>
     <ul class="options" v-show="open">
       <li
-        v-for="option in options"
-        :key="option"
-        @click="$emit('update:modelValue', option)"
+        v-for="(optionLabel, optionValue) in options"
+        :key="optionValue"
+        @click="$emit('update:modelValue', optionValue)"
       >
-        {{ option }}
+        {{ optionLabel }}
       </li>
     </ul>
   </div>

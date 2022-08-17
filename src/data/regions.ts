@@ -1,4 +1,5 @@
 export const REGIONS = {
+  "": "All",
   Africa: "Africa",
   Americas: "Americas",
   Asia: "Asia",

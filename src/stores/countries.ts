@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import Fuse from "fuse.js";
 
 import type { CountryDto, FilterData, Region, SortBy } from "@/typings/dto";
 import { getAllCountries, getCountryByCode } from "@/api/countries";
@@ -20,11 +21,16 @@ export const useCountriesStore = defineStore({
       }, {} as Record<string, CountryDto>);
     },
     processedCountries(state) {
-      const filteredCountries = state.countries.filter(
-        (country) =>
-          country.region.toLowerCase().includes(state.region.toLowerCase()) &&
-          country.name.toLowerCase().includes(state.query.toLowerCase())
+      const filteredCountriesByRegion = state.countries.filter((country) =>
+        country.region.toLowerCase().includes(state.region.toLowerCase())
       );
+      const fuse = new Fuse(filteredCountriesByRegion, {
+        keys: ["name"],
+        threshold: 0.4,
+      });
+      const filteredCountries = state.query
+        ? fuse.search(state.query).map((i) => i.item)
+        : filteredCountriesByRegion;
       return sort(filteredCountries, state.sortBy);
     },
   },
@@ -55,16 +61,16 @@ export const useCountriesStore = defineStore({
 });
 
 function sort(countries: CountryDto[], sortBy: SortBy | "") {
-  if (sortBy === "Name ↑") {
+  if (sortBy === "Name↑") {
     return countries.sort((a, b) => a.name.localeCompare(b.name));
   }
-  if (sortBy === "Name ↓") {
+  if (sortBy === "Name↓") {
     return countries.sort((a, b) => b.name.localeCompare(a.name));
   }
-  if (sortBy === "Population ↑") {
+  if (sortBy === "Population↑") {
     return countries.sort((a, b) => a.population - b.population);
   }
-  if (sortBy === "Population ↓") {
+  if (sortBy === "Population↓") {
     return countries.sort((a, b) => b.population - a.population);
   }
   return countries;
