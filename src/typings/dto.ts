@@ -49,4 +49,10 @@ type Region = keyof typeof REGIONS;
 
 type SortBy = keyof typeof SORT_BY;
 
-export type { CountryDto, Region, SortBy };
+interface FilterData {
+  region: Region;
+  query: string;
+  sortBy: SortBy;
+}
+
+export type { CountryDto, Region, SortBy, FilterData };

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, watch, watchEffect } from "vue";
 
-import AppLink from "../components/AppLink.vue";
-import BackButton from "../components/BackButton.vue";
+import AppLink from "@/components/AppLink.vue";
+import BackButton from "@/components/BackButton.vue";
 import type { CountryDto } from "@/typings/dto";
-import KeyValue from "../components/KeyValue.vue";
+import KeyValue from "@/components/KeyValue.vue";
 import { useCountriesStore } from "@/stores/countries";
 
 const country = ref<CountryDto>();

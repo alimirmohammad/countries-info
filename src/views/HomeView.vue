@@ -1,14 +1,23 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
+import { useRoute } from "vue-router";
 
-import AppInput from "../components/AppInput.vue";
-import AppSelect from "../components/AppSelect.vue";
-import AppCard from "../components/AppCard.vue";
-import { useCountriesStore } from "@/stores/countries";
+import AppInput from "@/components/AppInput.vue";
+import AppSelect from "@/components/AppSelect.vue";
+import AppCard from "@/components/AppCard.vue";
+import type { Region, SortBy } from "@/typings/dto";
 import { REGIONS } from "@/data/regions";
 import { SORT_BY } from "@/data/sortBy";
+import { useCountriesStore } from "@/stores/countries";
 
 const countriesStore = useCountriesStore();
+const route = useRoute();
+
+countriesStore.initFilterData({
+  query: route.query.query as string,
+  region: route.query.region as Region,
+  sortBy: route.query.sortBy as SortBy,
+});
 
 onMounted(async () => {
   if (countriesStore.cached) return;

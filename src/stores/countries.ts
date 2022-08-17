@@ -1,15 +1,15 @@
 import { defineStore } from "pinia";
 
-import type { CountryDto, Region, SortBy } from "@/typings/dto";
+import type { CountryDto, FilterData, Region, SortBy } from "@/typings/dto";
 import { getAllCountries, getCountryByCode } from "@/api/countries";
 
 export const useCountriesStore = defineStore({
   id: "countries",
   state: () => ({
     countries: [] as CountryDto[],
-    region: "" as Region,
+    region: "" as Region | "",
     query: "",
-    sortBy: "" as SortBy,
+    sortBy: "" as SortBy | "",
     cached: false,
   }),
   getters: {
@@ -46,10 +46,15 @@ export const useCountriesStore = defineStore({
         return response.problem;
       }
     },
+    initFilterData({ region, query, sortBy }: Partial<FilterData>) {
+      this.region = region ?? "";
+      this.query = query ?? "";
+      this.sortBy = sortBy ?? "";
+    },
   },
 });
 
-function sort(countries: CountryDto[], sortBy: SortBy) {
+function sort(countries: CountryDto[], sortBy: SortBy | "") {
   if (sortBy === "Name ↑") {
     return countries.sort((a, b) => a.name.localeCompare(b.name));
   }
