@@ -6,6 +6,10 @@ This web app will give you information about all countries in the world.
 
 The app is written with Vue 3 (composition API), Vue-Router, Pinia, TypeScript, and Vite.
 
+## Deployed Version
+
+You can checkout the deployed version of the app on [this link](https://countries-info-alimirmohammad.vercel.app/)
+
 ## Features
 
 - The app uses a responsive design, to look good both on the desktop and on mobile.
