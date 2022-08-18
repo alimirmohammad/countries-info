@@ -1,6 +1,6 @@
 {
-  "name": "alibaba-task",
-  "version": "0.0.0",
+  "name": "countries-info",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
